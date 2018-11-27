@@ -2,7 +2,10 @@
 
 module Website =
     
+    open System
     open PuppeteerSharp
+
+    let mutable counter = 200
 
     let chromiumInstalled =
         BrowserFetcher().LocalRevisions()
@@ -15,7 +18,20 @@ module Website =
             printfn "Downloading chromium..."
             
             let browserFetcher = BrowserFetcher()
-            browserFetcher.DownloadProgressChanged.Add((fun args -> printfn "%i%%" args.ProgressPercentage))
+            browserFetcher.DownloadProgressChanged.Add((fun args ->
+                                                            if counter = 200 then
+                                                                counter <- 0
+
+                                                                Console.SetCursorPosition(0, Console.CursorTop)
+                                                                Console.Write(args.ProgressPercentage.ToString() + "%")
+                                                            else 
+                                                                if args.ProgressPercentage = 100 then
+                                                                    Console.SetCursorPosition(0, Console.CursorTop)
+                                                                    Console.Write(args.ProgressPercentage.ToString() + "%")
+                                                                    Console.WriteLine("")
+                                                                else
+                                                                    counter <- counter + 1
+                                                      ))
             browserFetcher.DownloadAsync(BrowserFetcher.DefaultRevision)
             |> Async.AwaitTask
             |> Async.RunSynchronously
