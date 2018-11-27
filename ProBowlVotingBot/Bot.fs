@@ -11,10 +11,13 @@ module Bot =
     // Position selector.
     // Array.from(document.querySelectorAll('a')).filter(a => a.title === 'Wide Receivers')[0].click()
 
+    // Name selector.
+    //Array.from(document.querySelectorAll('div')).filter(div => div.className === 'player-inner yui3-pro-bowl-ballot-player-opt-content')
+
     [<Literal>]
     let VoteButtonSelector = "#ballot-submit"
 
-    let checkArgs argv =
+    let private checkArgs argv =
         if Array.contains "-p" argv         = false ||
            Array.contains "--position" argv = false then
            printfn "Please give a position for the player to vote for."
@@ -29,12 +32,12 @@ module Bot =
             else
                 true
 
-    let rec vote counter (browser: Browser) =
+    let rec private vote counter (browser: Browser) =
         printfn "Vote #%i" counter
         
         browser
         |> newPage
-        |> goTo "http://www.nfl.com/probowl/ballot"
+        |> goTo "http://www.nfl.com/probowl/ballot?optid=983040_15_1_22&team=SF&pos=ST"
         |> waitForSelector VoteButtonSelector
         |> hover VoteButtonSelector
         |> click VoteButtonSelector
@@ -43,16 +46,20 @@ module Bot =
         
         vote (counter + 1) browser
 
-    let run (argv: string[]) =
-        if checkArgs argv = false then  
-            1
-        else        
-            let options = new LaunchOptions()
-            options.Headless <- false
-        
-            fetchChroium ()
-            createBrowser options
-            |> vote 1
+    let private browserOptions =
+        let options = new LaunchOptions()
+        options.Headless <- false
 
-            0
+        options
+
+    let run (argv: string[]) =
+        //match checkArgs argv with
+        //    | false -> 1
+        //    | true -> 
+        fetchChroium ()
+        createBrowser browserOptions
+        |> vote 1
+
+        0
+
 
