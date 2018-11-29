@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ProBowlVotingBot": {
+      "commandName": "Project",
+      "commandLineArgs": "--position ST --name \"MaRk nzeochA\" --show true"
+    }
+  }
+}

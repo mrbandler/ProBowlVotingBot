@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Compile Include="Website.fs" />
+    <Compile Include="Args.fs" />
     <Compile Include="Bot.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>

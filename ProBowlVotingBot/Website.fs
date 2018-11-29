@@ -37,9 +37,10 @@ module Website =
             |> Async.RunSynchronously
             |> ignore
 
+            printfn "Installing Chromium..."
             printfn "Chromium downloaded..."
         else
-            printfn "Chroium already downloaded!"
+            printfn "Chromium already installed!"
 
     let createBrowser (options: LaunchOptions) =
         Puppeteer.LaunchAsync(options)
@@ -96,4 +97,8 @@ module Website =
         |> Async.RunSynchronously
 
         page
-
+    
+    let evaluateExpression<'T> script (page: Page) =
+        page.EvaluateExpressionAsync<'T>(script)
+        |> Async.AwaitTask
+        |> Async.RunSynchronously
