@@ -6,25 +6,23 @@ module Bot =
     open ProBowlVotingBot.Website
     open ProBowlVotingBot.Args
 
-    // Position selector.
-    // Array.from(document.querySelectorAll('a')).filter(a => a.title === 'Wide Receivers')[0].click()
-
-    // Name selector.
-    //Array.from(document.querySelectorAll('div')).filter(div => div.className === 'player-inner yui3-pro-bowl-ballot-player-opt-content')
-
+    /// Vote button selector.
     [<Literal>]
     let VoteButtonSelector = "#ballot-submit"
 
+    /// JS Script to retrive the player name selector.
     [<Literal>]
     let NameSelectorScript = "Array.from(document.querySelectorAll('div')).filter(div => div.className === 'player-inner yui3-pro-bowl-ballot-player-opt-content').filter(div => div.innerHTML.toLowerCase().includes('{0}') && div.innerHTML.toLowerCase().includes('{1}')).map(div => div.id)[0]"
 
+    /// Creates the JS script with the given name over the CLI.
     let private createScript (script: string) (name: string) =
         let lowerName = name.ToLower()
         let split = lowerName.Split [|' '|]
 
         let result = script.Replace("{0}", Array.item 0 split)
         result.Replace("{1}", Array.item 1 split)
-
+       
+    /// Recursive vote that shows the browser to the user.
     let rec private voteShow positionSelector name counter (browser: Browser) =
         let page = 
             browser
@@ -48,12 +46,18 @@ module Bot =
         page
         |> hover VoteButtonSelector
         |> click VoteButtonSelector
+        |> ignore
+
+        printfn "Vote #%i casted!" (counter + 1)
+
+        page
         |> waitForNavigation
         |> closePage
 
         printfn "Vote #%i casted!" (counter + 1)
         voteShow positionSelector name (counter + 1) browser
     
+    /// Recursive vote that hides the browser from the user.
     let rec vote positionSelector name counter (browser: Browser) =
         let page = 
             browser
@@ -71,11 +75,16 @@ module Bot =
         |> click nameSelector
         |> waitForSelector VoteButtonSelector
         |> click VoteButtonSelector
+        |> ignore
+
+        printfn "Vote #%i casted!" (counter + 1)
+
+        page
         |> closePage
         
-        printfn "Vote #%i casted!" (counter + 1)
         vote positionSelector name (counter + 1) browser
-
+       
+    /// Creates browser options based on passed CLI flags.
     let private browserOptions show =
         let options = new LaunchOptions()
         match show with
@@ -87,7 +96,8 @@ module Bot =
             | false -> 
                 options.Headless <- true
                 options
-
+    
+    /// Strts the bot with the given CLI arguments.
     let startBot (positionSelector: string) (name: string) (show: bool) =
         fetchChroium ()
 
@@ -98,12 +108,14 @@ module Bot =
             | false -> createBrowser (browserOptions show) |> vote positionSelector name 0
             | true -> createBrowser (browserOptions show) |> voteShow positionSelector name 0
 
+    /// Runs the bot with given CLI arguments.
     let run (argv: string[]) =
         let positionSelector, name, show = evaluateArgs argv
         match positionSelector, name with   
             | None, None -> 0
             | None, Some _ -> printfn "The given position is not valid! Please try again..."; 1
             | Some p, Some n -> startBot p n show; 0
+            | _, None -> 1
 
 
 

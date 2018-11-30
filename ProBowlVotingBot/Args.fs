@@ -2,6 +2,7 @@
 
 module Args =
     
+    /// All possible football positions.
     type Position =
         | Nope = 0
         | QB = 1
@@ -23,19 +24,24 @@ module Args =
         | RS = 17
         | P = 18
         | ST = 19
-
+        
+    /// CLI flag for the position value.
     [<Literal>]
     let PositionFlag = "--position"
 
+    /// CLI flag for the player name.
     [<Literal>]
     let NameFlag = "--name"
 
+    /// CLI flag to show the automated browser.
     [<Literal>]
     let ShowFlag = "--show"
-
+    
+    /// Position button selector prefix.
     [<Literal>]
     let ButtonSelectorPrefix = "#button-"
 
+    /// Returns the button selector for a given position.
     let private positionSelector position =
         match position with
             | Position.Nope -> None
@@ -60,6 +66,7 @@ module Args =
             | Position.ST -> Some (ButtonSelectorPrefix + "ST")
             | _ -> None
 
+    /// Converts a position CLI value to a position enum value.
     let private convertPositionFlagValue value =
         match value with
             | "QB" -> Position.QB
@@ -83,6 +90,7 @@ module Args =
             | "ST" -> Position.ST
             | _ -> Position.Nope
 
+    /// Checks if all needed arguments have been passed.
     let private checkArgs argv =
         if Array.contains PositionFlag argv = false then
             printfn "Please give a position for the player to vote for."
@@ -95,7 +103,8 @@ module Args =
                false
             else
                 true
-
+    
+    /// Evaluates a flag value with the given arguments and the flag.
     let private evaluateFlagValue argv flag =
         let result =
             argv 
@@ -107,11 +116,11 @@ module Args =
         else
             ""
 
+    /// Evaluates the given arguments.
     let evaluateArgs (argv: string[]): string option * string option * bool = 
         match checkArgs argv with
             | false -> None, None, false
             | true ->
-               
                 let positionSelector =
                     evaluateFlagValue argv PositionFlag
                     |> convertPositionFlagValue
