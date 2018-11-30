@@ -34,7 +34,7 @@ ProBowlVotingBot.exe --position QB --name "patrick mahomes" --show false
 
 **Have fun voting!**  🗳️🏈
 
-## 2. Buy me a coffee
+## 3. Buy me a coffee
 
 If you like you can buy me a coffee:
 
@@ -46,7 +46,7 @@ If you like you can buy me a coffee:
 
 ---
 
-## 3. License
+## 4. License
 
 MIT License
 
