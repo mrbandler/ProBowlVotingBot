@@ -24,7 +24,7 @@ ProBowlVotingBot.exe --position ST --name "mark zeocha"
 
 With the above command the bot will download a local Chromium install it and then open it to do it's *magic*!
 
-![]()
+![ProBowlVotingBot](https://raw.githubusercontent.com/mrbandler/ProBowlVotingBot/master/assets/ProBowlVoteBot.gif)
 
 Of course you can specify any valid position and name from the voting cast. And if you don't need to see what is going on you can hide the browser!
 
