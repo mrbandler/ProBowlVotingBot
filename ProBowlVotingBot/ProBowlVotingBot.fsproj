@@ -3,6 +3,15 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Authors>mrbandler</Authors>
+    <Product>Pro Bowl Voting Bot</Product>
+    <Description>This is a bot that automatically votes for your favorite player.</Description>
+    <Copyright>Copyright (c) 2018 mrbandler.</Copyright>
+    <PackageLicenseUrl>https://github.com/mrbandler/ProBowlVotingBot/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/mrbandler/ProBowlVotingBot</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mrbandler/ProBowlVotingBot</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>pro, bowl, nfl, bot</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

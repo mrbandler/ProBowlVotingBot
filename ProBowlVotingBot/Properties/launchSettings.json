@@ -2,7 +2,7 @@
   "profiles": {
     "ProBowlVotingBot": {
       "commandName": "Project",
-      "commandLineArgs": "--position ST --name \"MaRk nzeochA\" --show true"
+      "commandLineArgs": "--position QB --name \"patrick mahomes\""
     }
   }
 }
