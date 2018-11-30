@@ -36,7 +36,6 @@ module Bot =
             |> hover positionSelector
             |> click positionSelector
         
-
         let script = createScript NameSelectorScript name
         let nameSelector = "#" + (page |> evaluateExpression<string> script)
         
@@ -45,7 +44,7 @@ module Bot =
         |> click nameSelector
         |> ignore
 
-        (Async.Sleep 2000) |> Async.RunSynchronously
+        (Async.Sleep 1000) |> Async.RunSynchronously
 
         page
         |> hover VoteButtonSelector
@@ -69,7 +68,6 @@ module Bot =
             |> waitForSelector positionSelector
             |> click positionSelector
         
-
         let script = createScript NameSelectorScript name
         let nameSelector = "#" + (page |> evaluateExpression<string> script)
         
