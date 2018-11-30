@@ -64,7 +64,7 @@ module Bot =
         let page = 
             browser
             |> newPage
-            |> goTo VotingWebsite
+            |> goTo VotingWebsite   
             |> waitForSelector positionSelector
             |> click positionSelector
         
