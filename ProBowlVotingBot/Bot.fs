@@ -6,6 +6,10 @@ module Bot =
     open ProBowlVotingBot.Website
     open ProBowlVotingBot.Args
 
+    /// Root webpage of the voting process.
+    [<Literal>]
+    let VotingWebsite = "http://www.nfl.com/probowl/ballot"
+
     /// Vote button selector.
     [<Literal>]
     let VoteButtonSelector = "#ballot-submit"
@@ -27,7 +31,7 @@ module Bot =
         let page = 
             browser
             |> newPage
-            |> goTo "http://www.nfl.com/probowl/ballot"
+            |> goTo VotingWebsite
             |> waitForSelector positionSelector
             |> hover positionSelector
             |> click positionSelector
@@ -54,7 +58,6 @@ module Bot =
         |> waitForNavigation
         |> closePage
 
-        printfn "Vote #%i casted!" (counter + 1)
         voteShow positionSelector name (counter + 1) browser
     
     /// Recursive vote that hides the browser from the user.
@@ -62,7 +65,7 @@ module Bot =
         let page = 
             browser
             |> newPage
-            |> goTo "http://www.nfl.com/probowl/ballot"
+            |> goTo VotingWebsite
             |> waitForSelector positionSelector
             |> click positionSelector
         
