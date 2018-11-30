@@ -32,7 +32,7 @@ Of course you can specify any valid position and name from the voting cast. And 
 ProBowlVotingBot.exe --position QB --name "patrick mahomes" --show false
 ```
 
-**Have fun voting! **🗳️🏈
+**Have fun voting!**  🗳️🏈
 
 ## 2. Buy me a coffee
 
